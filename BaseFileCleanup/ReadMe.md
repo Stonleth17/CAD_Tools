@@ -2,7 +2,7 @@
 Everybody seems to clean CAD files just a little bit differently. I've been finding that the steps below seem to be the best practices for cleaning up base files to keep a set running as smoothly and cleanly as possible, but if you have additions or corrections let me know!
 
 ## Setup:
-Download [LD_CLEANUP.lsp](https://github.com/Stonleth17/CAD_Standards/blob/3cdb30c720b9918b7f1be445f518c47f05c418ce/BaseFileCleanup/LD_CLEANUP.lsp) file (Right-click the link and select "Save Link As..."). Save it somewhere you can access it easily, I store mine on my desktop so that I can easily drag and drop it into a CAD file.
+Download LD_CLEANUP.lsp or copy it from the folder on the server. Save it somewhere you can access it easily, I store mine on my desktop so that I can easily drag and drop it into a CAD file.
 
 ## Steps:
 Leave the original CAD Base file in the inbox and save a working copy of it into the CAD / civil folder. perform the following steps in the working copy:
