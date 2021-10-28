@@ -16,3 +16,4 @@ Leave the original CAD Base file in the inbox and save a working copy of it into
 ## Bonus tips:
 * For quicker base updates, save a layer state of your finished layer settings and use it to do everything after step 3 above with one click! (sometimes you have to open the CAD file and re-save the layer state to be able to import it into a new file)
 * If there is a command in the LD_CLEANUP lisp that you don't want to run (for example, if you don't want to set all objects to "ByLayer" for colors, linetypes, etc.) then open LD_CLEANUP.lsp in Microsoft Notepad and add three semi-colons in front of the command you want to disable: `(command "setbylayer" "all" "" "" "")` becomes `;;; (command "setbylayer" "all" "" "" "")`. Hit save and drag-and-drop it into modelspace again, and now when you run LD_CLEANUP CAD will skip that step.
+* your typo here
