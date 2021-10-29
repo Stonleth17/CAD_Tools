@@ -19,5 +19,4 @@
   (command "-purge" "o")
   (command "-purge" "a" "" "n")
   (command "audit" "y")
-  (command "qsave")
 )
