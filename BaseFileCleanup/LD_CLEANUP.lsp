@@ -1,4 +1,8 @@
 (defun c:ld_cleanup()
+  (command "-layout" "set" "model")
+  (command "-layout" "delete" "")
+  (command "-layout" "delete" "")
+  (command "-layout" "delete" "")
   (command "layon")
   (command "laythw")
   (command "-layer" "u" "*" "c" "252" "*" "lw" "d" "*" "")
