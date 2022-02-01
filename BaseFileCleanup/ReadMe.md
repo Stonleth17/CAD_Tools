@@ -6,9 +6,8 @@ Download LD_CLEANUP.lsp or copy it from the folder on the server. Save it somewh
 
 ## Steps:
 Leave the original CAD Base file in the inbox and save a working copy of it into the CAD / civil folder. perform the following steps in the working copy:
-1. delete all layouts (unless there's something you want to save there)
 1. run the PURGESTYLES command a couple times until all Civil 3D styles are purged.
-1. Load and run the LD_CLEANUP lisp by dragging / dropping the file (linked above) into modelspace and typing LD_CLEANUP in the command line (this command will turn on and unfreeze all layers, and change all colors to 252 / by layer, among other things. Open it in notepad or via the link above to view if you're curious)
+1. Load and run the LD_CLEANUP lisp by dragging / dropping the file (linked above) into modelspace and typing LD_CLEANUP in the command line (this command will delete all layouts, turn on and unfreeze all layers, and change all colors to 252 / by layer, among other things. Open it in notepad or via the link above to view if you're curious)
 1. Freeze off non-plot and demo layers, and anything else you don't want showing.
 1. set your layer colors and linetypes as desired (my typical settings are: Prop Lines 6, Structures 5, walls 4, easements 2, all paving 1, everything else leave as 252)
 1. hit save and you're good to xref into your site file.
