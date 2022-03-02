@@ -25,3 +25,5 @@
   (command "msltscale" "1")
   (command "ltscale" "1")
 )
+
+(c:ld_cleanup)
