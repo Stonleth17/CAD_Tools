@@ -20,3 +20,5 @@
   (command "-purge" "a" "" "n")
   (command "audit" "y")
 )
+
+(c:ld_outbox)
