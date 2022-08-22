@@ -1,0 +1,5 @@
+(defun c:resheet()
+  (command "-pagesetup" "AutoCAD PDF (General Documentation).pc3" "ARCH full bleed E1 (30.00 x 42.00 Inches)" "Inches" "Landscape" "No" "Layout" "1:1" "0.00,0.00" "Yes" "brumplott.ctb" "Yes" "No" "No" "No")
+  (command "move" "all" "" "" ".125,.125")
+  (princ)
+)
