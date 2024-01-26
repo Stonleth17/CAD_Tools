@@ -61,3 +61,6 @@
   (layerstate-save "BA" 255 nil)
   (alert "BA Layerstate saved")
 )
+
+;;; Un-comment the line below to auto-run this LISP when you drag and drop it into the file.
+;;;(c:ba_cleaner)
