@@ -26,4 +26,5 @@
   (command "ltscale" "1")
 )
 
-(c:ld_cleanup)
+;;; Un-comment the line below to auto-run this LISP when you drag and drop it into the file.
+;;;(c:ld_cleanup)
