@@ -1,7 +1,7 @@
 (vl-load-com)
 (defun c:xprobe (/ col ent obj name pos sel entlst)
   (while
-    (setq sel (nentsel "\nSelect nested xref or block object to list: "))
+    (setq sel (nentsel "\nSelect nested xref or block object to probe: "))
     (if (> (setq len (length sel)) 2)
       (progn
       	(setq el1 (car sel))
@@ -13,6 +13,13 @@
     (setq xdump (list ""))
     (foreach n ents
       (setq obj (vlax-ename->vla-object n))
+      (setq typ (assoc 0 (entget n)))
+      (if (= (cdr typ) "INSERT")
+        (progn
+          (if (vlax-property-available-p obj 'Path)
+            (setq typ "XREF")
+            (setq typ "BLOCK")))
+        (setq typ (cdr typ)))
       (setq col (vlax-get obj 'color))
       (cond
         ((= col 256) (setq col "ByBlock"))
@@ -22,25 +29,24 @@
         (T (setq col (itoa col)))
       )
       (setq props (strcat
-        "---NESTED LEVEL " (itoa count) "---"
-        "\nName:       "  (if (vlax-property-available-p obj 'Name)
+        "----------Nest Level " (itoa count) "----------"
+        "\nObject:		" typ;(substr typ 5)
+        "\nName:		"  (if (vlax-property-available-p obj 'Name)
                             (vlax-get-property obj 'Name)
                             "(none)")
-        "\nLayer:       " (vlax-get-property obj 'Layer)
-        "\nColor:       " col
-        "\nLinetype:    " (vlax-get-property obj 'Linetype)
-        "\n"
+        "\nLayer:		" (vlax-get-property obj 'Layer)
+        "\nColor:		" col
+        "\nLinetype:		" (vlax-get-property obj 'Linetype)
+        "\n\n"
         )
       )
       (setq count (+ count 1))
       (setq xdump (append xdump (list props)))
     )
-    (princ xdump)
     (setq msg "")
-    (foreach n xdump
+    (foreach n (reverse xdump)
       (setq msg (strcat msg n)))
     (alert msg)
-    ; (alert props)
   )
   (princ)
 )
