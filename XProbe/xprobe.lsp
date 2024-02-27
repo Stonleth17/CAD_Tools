@@ -30,7 +30,7 @@
       )
       (setq props (strcat
         "----------Nest Level " (itoa count) "----------"
-        "\nObject:		" typ;(substr typ 5)
+        "\nObject:		" typ
         "\nName:		"  (if (vlax-property-available-p obj 'Name)
                             (vlax-get-property obj 'Name)
                             "(none)")
