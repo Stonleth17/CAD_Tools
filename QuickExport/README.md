@@ -1,0 +1,2 @@
+# QXPORT (Quick Export)
+LISP file for prepping files to send externally. Will delete all layouts, bind all Xrefs, purge and audit the file, and prompt you to save as a new file (i.e. in an outbox or sent folder).
