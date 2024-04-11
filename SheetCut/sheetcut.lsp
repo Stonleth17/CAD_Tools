@@ -4,14 +4,15 @@
 ;;; Written by Josh Wilcox
 ;;; Last update 04/10/2024
 
-(defun sheetcut ( / insert)
+(defun c:sheetcut ( / inpt)
 
   ;load the dynamic block viewport template
-  (setq insert(getvar "viewctr"))
+  (setq inpt(getvar "viewctr"))
   (command "_insert"
-  			"filepath for view template" ;need to add this in
-  			insert
-  			"1" "1" "0") ;need to confirm block setup, should it be scaled to a default starting scale on insert?
+  			"M:\Files\CADX\TBLOCKS\_Block_ViewportTemplate.dwg" ;block filepath
+  			inpt ;insertion point (center of current view)
+  			"120" ;default scale, 120 is 1"=10'-0"
+			"0") ;rotation
   
   ;prompt user to draw viewport outlines on the viewport layer as plylines
   (alert "Use the view template to determine where sheet boundaries should go
@@ -21,14 +22,19 @@
     		\n\nWhen you are satisfied, run the SHEETGEN command")
 )
 
-(defun sheetgen ()
+(defun c:sheetgen ()
   ; - start with polyline outlines of the sheet areas and select them in order of sheet views
   (setq vpol (ssget "\nSelect viewport outlines in order of sheets..."))
   (setq shtlen (length vpol))
 
+  ; - define valid sheet sizes
+  (setq shtsizelst (list "22x34" "24x36" "30x42" "36x48"))
+
   ; - prompt for sheet size and create sheets based on generic titleblock that can be replaced later
-  (setq shtsize(getstring "\nWhat size sheet? (22x34, 24x36, 30x42, 36x48)"))
-  (if (listp (member shtsize shtsizelst))
+  (setq shtsize(getstring (strcat "\nWhat size sheet? " shtsizelst)))
+  (setq shtscale(getstring "\nWhat scale for the viewports? e.g. 120 for 10 scale, 240 for 20, etc..."))
+  (if (null (member shtsize shtsizelst))
+	(princ "\nPlease input a valid sheet size"
 	(progn
 		(setq shtsize );retrieve the proper string from the shtsizelist
 		;generate a sheet based on shtsize
@@ -59,7 +65,7 @@
   ; -   lastly, generate labels... not sure how to number accurately yet though
 )
 
-(defun matchlinegen ()
+(defun c:matchlinegen ()
 ; - use from template to copy sheets from another file
 ; - automate the find / replace command that changes the matchline labels and sheet titles
 ; - add sheets to the sheetset (maybe prompt for the exact sheetset so as not to accidnetally add to the wrong one)
