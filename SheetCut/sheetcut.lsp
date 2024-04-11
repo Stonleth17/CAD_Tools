@@ -49,8 +49,6 @@
 	)
     ;if not a real sheet size then repeat sheet size prompt...
   )
-  ; - create sheetset and add sheets to it
-
   ; - rename / renumber automatically?
 
   ; - create viewports for each sheet based on bounding box min / max of polylines
@@ -66,6 +64,8 @@
   ; -   draw matchlines in paperspace for viewports
 
   ; -   lastly, generate labels... not sure how to number accurately yet though
+
+  ; -  Alert user to set up a sheetset
 )
 
 (defun c:matchlinegen ()
