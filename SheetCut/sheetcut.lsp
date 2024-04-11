@@ -9,17 +9,19 @@
   ;load the dynamic block viewport template
   (setq inpt(getvar "viewctr"))
   (command "_insert"
-  			"M:\Files\CADX\TBLOCKS\_Block_ViewportTemplate.dwg" ;block filepath
+  			"M:\\Files\\CADX\\TBLOCKS\\_Block_ViewportTemplate.dwg" ;block filepath
   			inpt ;insertion point (center of current view)
   			"120" ;default scale, 120 is 1"=10'-0"
 			"0") ;rotation
   
   ;prompt user to draw viewport outlines on the viewport layer as plylines
   (alert "Use the view template to determine where sheet boundaries should go
-    		\n\n1. Set the scale of the template
-    		\n2. Place and copy templates until entire site is covered
-    		\n3. Draw closed polyline boundaries for your viewports
+    		\n\n1. Pick the desired sheet size from the dropdown
+		\n2. Set the scale of the block to the desired viewport scale
+    		\n3. Place and copy templates until entire site is covered
+    		\n4. Draw closed polyline boundaries for your viewports
     		\n\nWhen you are satisfied, run the SHEETGEN command")
+  (princ)
 )
 
 (defun c:sheetgen ()
@@ -40,8 +42,9 @@
 		;generate a sheet based on shtsize
 		;xattach a dummy titleblock
 		(setq shtlen(shtlen - 1))
-	    (while (shtlen > 0)
+		(while (shtlen > 0)
 			;copy the initial sheet you just made
+		)
     	)
 	)
     ;if not a real sheet size then repeat sheet size prompt...
