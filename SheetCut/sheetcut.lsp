@@ -27,23 +27,30 @@
 (defun c:sheetgen ()
   ; - start with polyline outlines of the sheet areas and select them in order of sheet views
   (setq vpol (ssget "\nSelect viewport outlines in order of sheets..."))
-  (setq shtlen (length vpol))
-
+  
   ; - define valid sheet sizes
   (setq shtsizelst (list "22x34" "24x36" "30x42" "36x48"))
 
+  ; - prompt for first sheet number
+  (setq shtpfnum (getstring "\nEnter the sheet umber prefix (e.g. for L2.01 enter L2.)"))
+  (setq shtnum 1)
+
   ; - prompt for sheet size and create sheets based on generic titleblock that can be replaced later
-  (setq shtsize(getstring (strcat "\nWhat size sheet? " shtsizelst)))
+  (setq shtsize(getstring (strcat "\nWhat size sheet? Options: " shtsizelst)))
   (setq shtscale(getstring "\nWhat scale for the viewports? e.g. 120 for 10 scale, 240 for 20, etc..."))
   (if (null (member shtsize shtsizelst))
 	(princ "\nPlease input a valid sheet size"
 	(progn
-		(setq shtsize );retrieve the proper string from the shtsizelist
+		;make this a for loop on the polyline list
+
 		;generate a sheet based on shtsize
-		;xattach a dummy titleblock
-		(setq shtlen(shtlen - 1))
-		(while (shtlen > 0)
-			;copy the initial sheet you just made
+		(command "-layout" "t" "M:\\Files\\CADX\\TBLOCKS\\_TemplateLayouts.dwg" shtsize)
+		(command "-layout" "set" shtsize)
+		(command "-layout" "rename" (strcat shtpfnum (itoa shtnum)))
+		(setq shtnum (+ shtnum 1)
+
+		;place the viewport based on the polyline
+		
 		)
     	)
 	)
