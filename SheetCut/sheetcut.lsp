@@ -26,7 +26,7 @@
 
 (defun c:sheetgen ()
   ; - start with polyline outlines of the sheet areas and select them in order of sheet views
-  (setq vpol (ssget "\nSelect viewport outlines in order of sheets..."))
+  (setq ss (ssget));"\nSelect viewport outlines in order of sheets..."))
   
   ; - define valid sheet sizes
   (setq shtsizelst (list "22x34" "24x36" "30x42" "36x48"))
@@ -36,25 +36,24 @@
   (setq shtnum 1)
 
   ; - prompt for sheet size and create sheets based on generic titleblock that can be replaced later
-  (setq shtsize(getstring (strcat "\nWhat size sheet? Options: " shtsizelst)))
+  (setq shtsize(getstring (strcat "\nWhat size sheet? Options: 22x34, 24x36, 30x42, 36x48")))
   (setq shtscale(getstring "\nWhat scale for the viewports? e.g. 120 for 10 scale, 240 for 20, etc..."))
   (if (null (member shtsize shtsizelst))
-	(princ "\nPlease input a valid sheet size"
-	(progn
-		;make this a for loop on the polyline list
+	(princ "\nPlease input a valid sheet size")
+
+	;make this a for loop on the polyline ss
+	(repeat (setq i (sslength ss))
 
 		;generate a sheet based on shtsize
 		(command "-layout" "t" "M:\\Files\\CADX\\TBLOCKS\\_TemplateLayouts.dwg" shtsize)
 		(command "-layout" "set" shtsize)
-		(command "-layout" "rename" (strcat shtpfnum (itoa shtnum)))
-		(setq shtnum (+ shtnum 1)
+		(command "-layout" "rename" "" (strcat shtpfnum (itoa shtnum)))
+		(setq shtnum (1+ shtnum))
 
 		;place the viewport based on the polyline
 		
-		)
+
     	)
-	)
-    ;if not a real sheet size then repeat sheet size prompt...
   )
   ; - rename / renumber automatically?
 
