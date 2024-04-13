@@ -4,6 +4,8 @@
 ;;; Written by Josh Wilcox
 ;;; Last update 04/10/2024
 
+(vl-load-com)
+
 (defun c:sheetcut ( / inpt)
 
   ;load the dynamic block viewport template
@@ -25,36 +27,43 @@
 )
 
 (defun c:sheetgen ()
+  
+  ; - Define some system variables
+  (setq templatefp "C:\\Users\\jawil\\Documents\\PROJECTS\\2024-04-12 SheetCut LISP\\_TemplateLayouts.dwg")
+  ;"M:\\Files\\CADX\\TBLOCKS\\_TemplateLayouts.dwg")
+  (setq shtsizelst "22x34");(list "8.5x11" "8.5x11 P" "11x17" "11x17 P" "22x34" "24x36" "30x42" "36x48"))
+  (setq viewctr (13,11.375))
+  
   ; - start with polyline outlines of the sheet areas and select them in order of sheet views
   (setq ss (ssget));"\nSelect viewport outlines in order of sheets..."))
-  
-  ; - define valid sheet sizes
-  (setq shtsizelst (list "22x34" "24x36" "30x42" "36x48"))
 
   ; - prompt for first sheet number
-  (setq shtpfnum (getstring "\nEnter the sheet umber prefix (e.g. for L2.01 enter L2.)"))
+  (setq shtpfnum (getstring "\nEnter the sheet number prefix (e.g. for L2.01 enter L2.)"))
   (setq shtnum 1)
 
   ; - prompt for sheet size and create sheets based on generic titleblock that can be replaced later
-  (setq shtsize(getstring (strcat "\nWhat size sheet? Options: 22x34, 24x36, 30x42, 36x48")))
+  (setq promptstr (strcat "\nWhat size sheet? Options: " shtsizelst))
+  (setq shtsize(getstring promptstr))
   (setq shtscale(getstring "\nWhat scale for the viewports? e.g. 120 for 10 scale, 240 for 20, etc..."))
-  (if (null (member shtsize shtsizelst))
-	(princ "\nPlease input a valid sheet size")
+  ;(if (null (member shtsize shtsizelst))
+	;(princ "\nPlease input a valid sheet size")
 
 	;make this a for loop on the polyline ss
 	(repeat (setq i (sslength ss))
 
 		;generate a sheet based on shtsize
-		(command "-layout" "t" "M:\\Files\\CADX\\TBLOCKS\\_TemplateLayouts.dwg" shtsize)
+		(command "-layout" "t" templatefp shtsize)
 		(command "-layout" "set" shtsize)
 		(command "-layout" "rename" "" (strcat shtpfnum (itoa shtnum)))
 		(setq shtnum (1+ shtnum))
 
 		;place the viewport based on the polyline
-		
+		(setq ent (ssname ss i))
+		(setq entmin (vla-getboundingbox (vlax-ename->vla-object ent) 'minpt 'maxpt))
+		(command mview new entmin entmax "" viewctr)
 
     	)
-  )
+ ; )
   ; - rename / renumber automatically?
 
   ; - create viewports for each sheet based on bounding box min / max of polylines
