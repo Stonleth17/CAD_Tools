@@ -1,3 +1,8 @@
+; - Function for generating a single colored line for each of AutoCAD's 255 index colors.
+; - Useful for testing CTB tables (hence the name).
+; - Future versions may be able to also print the details of the pen table next to the line?
+; - Most likely that is impossible using LISP though.
+
 (defun c:test_ctb ( / pt1 LC LL LO pt2 pt3)
 
 ;pick point to place first line
