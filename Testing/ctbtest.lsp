@@ -6,13 +6,13 @@
 (defun c:test_ctb ( / pt1 LC LL LO pt2 pt3)
 
 ;pick point to place first line
-  (setq pt1 (getpoint "Select top left corner"))
-  (setq LC 1)
-  (setq LL 2)
-  (setq LO (list 0 0.25))
+  (setq pt1 (getpoint "Select top left corner")) ;starting point for first line
+  (setq LC 1) ;starting color for first line
+  (setq LL 2) ;length of lines
+  (setq LO (list 0 0.25)) ;offset for lines
 
 ;begin loop:
-  (while (< LC 256)
+  (while (< LC 256) ;stops loop after generating 255 lines
     
     ;place line and set color
     (setq pt2 (list (+ (car pt1) LL) (cadr pt1)))
